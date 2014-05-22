@@ -208,8 +208,8 @@
 
 - (void)openStateChanged:(BOOL)isOpen
 {
-    // nop for now
     self.tapRecognizer.enabled = isOpen;
+    self.mainViewController.view.userInteractionEnabled = !isOpen;
 }
 
 #pragma mark - <UIGestureRecognizerDelegate>
