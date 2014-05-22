@@ -66,6 +66,8 @@
         recognizer.delegate = self;
         recognizer;
     });
+    
+    [self openStateChanged:NO];
 }
 
 #pragma mark - Accessors
@@ -181,14 +183,18 @@
         resultP.x = MAX(0, resultP.x);
         self.centerView.frame = CGRectMake(resultP.x, resultP.y, self.centerView.bounds.size.width, self.centerView.bounds.size.height);
         if (recognizer.state == UIGestureRecognizerStateCancelled || recognizer.state == UIGestureRecognizerStateEnded) {
-            self.panStartPosition = CGPointZero;
             CGFloat finalX = CGRectGetMinX(self.centerView.frame);
             if (finalX > 0.0 && finalX < targetWidth) {
-                BOOL isOpen = (finalX > targetWidth * 0.25);
+                BOOL isOpen = NO;
+                if (self.panStartPosition.x == 0.0)
+                    isOpen = (finalX > targetWidth * 0.1);
+                else
+                    isOpen = !(finalX < targetWidth * 0.9);
                 [self setLeftViewOpen:isOpen animated:YES completion:nil];
             } else {
                 [self openStateChanged:[self isLeftViewOpen]];
             }
+            self.panStartPosition = CGPointZero;
         }
     }
 }
@@ -203,6 +209,7 @@
 - (void)openStateChanged:(BOOL)isOpen
 {
     // nop for now
+    self.tapRecognizer.enabled = isOpen;
 }
 
 #pragma mark - <UIGestureRecognizerDelegate>
