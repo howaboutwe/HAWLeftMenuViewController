@@ -78,6 +78,12 @@
     self.panRecognizer.enabled = !blockOpenClose;
 }
 
+- (void)setAllowPanning:(BOOL)allowPanning
+{
+    _allowPanning = allowPanning;
+    self.panRecognizer.enabled = allowPanning;
+}
+
 - (void)setLeftViewController:(UIViewController *)leftViewController
 {
     if (_leftViewController) {
