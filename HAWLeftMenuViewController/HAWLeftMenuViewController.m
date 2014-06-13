@@ -31,7 +31,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        self.useShadow = YES;
     }
     return self;
 }
@@ -84,6 +84,16 @@
     self.panRecognizer.enabled = allowPanning;
 }
 
+//override in subs to apply custom shadow
+-(void)applyShadow:(CALayer *)shadowLayer withBounds:(CGRect)rect{
+    shadowLayer.masksToBounds = NO;
+    shadowLayer.shadowRadius = 6;
+    shadowLayer.shadowOpacity = 0.2;
+    shadowLayer.shadowColor = [[UIColor blackColor] CGColor];
+    shadowLayer.shadowOffset = CGSizeZero;
+    shadowLayer.shadowPath = [[UIBezierPath bezierPathWithRect:rect] CGPath];
+}
+
 - (void)setLeftViewController:(UIViewController *)leftViewController
 {
     if (_leftViewController) {
@@ -114,6 +124,10 @@
     [mainViewController didMoveToParentViewController:self];
     if (isOpen)
         [self setLeftViewOpen:YES animated:NO completion:nil];
+    
+    if (self.useShadow){
+        [self applyShadow:self.centerView.layer withBounds:self.centerView.bounds];
+    }
 }
 
 #pragma mark - Actions
