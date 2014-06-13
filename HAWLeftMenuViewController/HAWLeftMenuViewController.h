@@ -11,6 +11,7 @@
 @interface HAWLeftMenuViewController : UIViewController
 @property (nonatomic, assign) BOOL blockOpenClose;
 @property (nonatomic, assign) BOOL allowPanning;
+@property (nonatomic, assign) BOOL useShadow;
 @property (nonatomic, assign) CGFloat leftViewOpenSize;
 @property (nonatomic, assign) CGFloat openResistance;
 @property (nonatomic, strong) IBOutlet UIViewController *leftViewController;
