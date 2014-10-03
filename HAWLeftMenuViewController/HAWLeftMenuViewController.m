@@ -57,6 +57,7 @@
         UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan:)];
         [self.centerView addGestureRecognizer:recognizer];
         recognizer.delegate = self;
+        recognizer.enabled = NO;
         recognizer;
     });
     
