@@ -75,13 +75,13 @@
 - (void)setBlockOpenClose:(BOOL)blockOpenClose
 {
     _blockOpenClose = blockOpenClose;
-    self.panRecognizer.enabled = !blockOpenClose;
+    self.panRecognizer.enabled = !blockOpenClose && self.allowPanning;
 }
 
 - (void)setAllowPanning:(BOOL)allowPanning
 {
     _allowPanning = allowPanning;
-    self.panRecognizer.enabled = allowPanning;
+    self.panRecognizer.enabled = allowPanning && !self.blockOpenClose;
 }
 
 //override in subs to apply custom shadow
